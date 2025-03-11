@@ -1,0 +1,23 @@
+﻿<Window x:Class="AbstractApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Abstract - Hauptmenü" Height="350" Width="500"
+        WindowState="Maximized">
+
+    <Grid Background="#f4f4f4">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+
+            <TextBlock Text="Willkommen bei Abstract" FontSize="20" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+            <Button Content="Projektverwaltung" Width="200" Height="40"
+                    Click="BtnProjektverwaltung_Click"/>
+
+            <Button Content="Neues Projekt erstellen" Width="200" Height="40"
+                    Click="BtnNeuesProjekt_Click"/>
+            
+            <Button Content="Einstellungen" Width="200" Height="40" Click="BtnEinstellungen_Click" Margin="0,10,0,0"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

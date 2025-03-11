@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "test",
+    "Erstellungsdatum": "2025-03-11T16:05:48.3843566+01:00",
+    "LetzteAenderung": "0001-01-01T00:00:00",
+    "AnzahlCluster": 0
+  },
+  {
+    "Name": "test123",
+    "Erstellungsdatum": "2025-03-11T16:51:32.5523498+01:00",
+    "LetzteAenderung": "0001-01-01T00:00:00",
+    "AnzahlCluster": 0
+  },
+  {
+    "Name": "lalaland",
+    "Erstellungsdatum": "2025-03-11T16:51:47.5415927+01:00",
+    "LetzteAenderung": "0001-01-01T00:00:00",
+    "AnzahlCluster": 0
+  }
+]
