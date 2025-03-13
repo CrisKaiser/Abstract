@@ -9,10 +9,9 @@ namespace AbstractApp
 {
     public partial class ProjektDetails : Window
     {
-        private Point _clickPosition; 
         
         private bool isDragging = false;
-        private Point startDragPoint;
+        private Point dragStart;
         private double startX, startY;
 
         public ProjektDetails(Projekt projekt)
@@ -22,39 +21,33 @@ namespace AbstractApp
             ErstellungsdatumText.Text = $"Erstellt am: {projekt.Erstellungsdatum.ToShortDateString()}";
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        private void PaperGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Middle)
             {
                 isDragging = true;
-                startDragPoint = e.GetPosition(this); // Position relativ zum Fenster
-                startX = GridTransform.X;
-                startY = GridTransform.Y;
-                ((Grid)sender).CaptureMouse();
-                e.Handled = true;
+                dragStart = e.GetPosition(this);
+                PaperGrid.CaptureMouse();
             }
         }
 
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        private void PaperGrid_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDragging)
             {
-                Point currentPoint = e.GetPosition(this);
-                GridTransform.X = startX + (currentPoint.X - startDragPoint.X);
-                GridTransform.Y = startY + (currentPoint.Y - startDragPoint.Y);
-
-                // Hintergrund neu zeichnen
-                DraggableGrid.InvalidateVisual();
+                Point currentPos = e.GetPosition(this);
+                PaperTransform.X += currentPos.X - dragStart.X;
+                PaperTransform.Y += currentPos.Y - dragStart.Y;
+                dragStart = currentPos;
             }
         }
 
-        private void Grid_MouseUp(object sender, MouseButtonEventArgs e)
+        private void PaperGrid_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Middle)
             {
                 isDragging = false;
-                ((Grid)sender).ReleaseMouseCapture();
-                e.Handled = true;
+                PaperGrid.ReleaseMouseCapture();
             }
         }
 
@@ -65,28 +58,24 @@ namespace AbstractApp
             this.Close();
         }
 
-        private void Grid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _clickPosition = e.GetPosition(DraggableGrid);
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GridTransform.X = -1000;
-            GridTransform.Y = -1000;
+            PaperTransform.X = (ActualWidth - PaperGrid.ActualWidth) / 2;
+            PaperTransform.Y = (ActualHeight - PaperGrid.ActualHeight) / 2;
         }
 
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
+            var clickPos = Mouse.GetPosition(PaperGrid);
+
             TextBox textBox = new TextBox
             {
-                Width = 150, 
+                Width = 150,
                 Background = Brushes.White,
                 BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(1),
+                Margin = new Thickness(clickPos.X, clickPos.Y, 0, 0),
                 VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(_clickPosition.X, _clickPosition.Y, 0, 0), 
                 Padding = new Thickness(5),
                 TextWrapping = TextWrapping.Wrap,
                 AcceptsReturn = true,
@@ -102,7 +91,7 @@ namespace AbstractApp
                 textBox.Height = (lineCount * lineHeight) + textBox.Padding.Top + textBox.Padding.Bottom;
             };
 
-            DraggableGrid.Children.Add(textBox);
+            PaperGrid.Children.Add(textBox);
         }
 
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
