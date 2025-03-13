@@ -103,7 +103,8 @@ namespace AbstractApp
                 Padding = new Thickness(5),
                 TextWrapping = TextWrapping.Wrap,
                 AcceptsReturn = true,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Hidden
+                VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
+                Style = (Style)FindResource("RoundedTextBoxStyle")
             };
 
             textBox.Height = textBox.FontSize + textBox.Padding.Top + textBox.Padding.Bottom;
