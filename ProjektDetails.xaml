@@ -4,17 +4,16 @@
         Title="Projektdetails" 
         WindowState="Maximized"
         Loaded="Window_Loaded"
+        MouseDown="PaperGrid_MouseDown"
+        MouseMove="PaperGrid_MouseMove"
+        MouseUp="PaperGrid_MouseUp"
         MouseWheel="Window_MouseWheel">
 
     <Grid>
-        <!-- Scrollbares "Papier" -->
         <Canvas>
             <Grid x:Name="PaperGrid"
                   Width="5000"
                   Height="5000"
-                  MouseDown="PaperGrid_MouseDown"
-                  MouseMove="PaperGrid_MouseMove"
-                  MouseUp="PaperGrid_MouseUp"
                   Panel.ZIndex="0">
 
                 <Grid.RenderTransform>
@@ -24,7 +23,6 @@
                     </TransformGroup>
                 </Grid.RenderTransform>
 
-                <!-- Karierter Hintergrund -->
                 <Grid.Background>
                     <DrawingBrush Viewport="0,0,20,20" 
                                 ViewportUnits="Absolute" 
@@ -54,7 +52,6 @@
                     </DrawingBrush>
                 </Grid.Background>
 
-                <!-- Context Menu -->
                 <Grid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Eintrag hinzufügen" Click="MenuItem_EintragHinzufuegen_Click"/>
@@ -65,7 +62,6 @@
             </Grid>
         </Canvas>
 
-        <!-- Statische UI Elemente -->
         <StackPanel Background="White" Margin="20" Panel.ZIndex="1"
             HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBlock Name="ProjektNameText" FontSize="20" FontWeight="Bold"/>
