@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Projektdetails" 
         WindowState="Maximized"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        MouseWheel="Window_MouseWheel">
 
     <Grid>
         <!-- Scrollbares "Papier" -->
@@ -18,7 +19,7 @@
 
                 <Grid.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform x:Name="PaperScale" ScaleX="1" ScaleY="1"/>
+                        <ScaleTransform x:Name="PaperScale"/>
                         <TranslateTransform x:Name="PaperTransform"/>
                     </TransformGroup>
                 </Grid.RenderTransform>

@@ -15,7 +15,7 @@ namespace AbstractApp
         private double startX, startY;
 
         private double zoomFactor = 1.0;
-        private readonly double zoomStep = 0.1;
+        private readonly double zoomStep = 0.01;
         private readonly double minZoom = 0.2;  
         private readonly double maxZoom = 5.0;
 
@@ -60,15 +60,19 @@ namespace AbstractApp
 
         private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            double zoomDelta = e.Delta > 0 ? zoomStep : -zoomStep;
-            double newZoom = zoomFactor + zoomDelta;
+            Point mousePosBeforeZoom = e.GetPosition((UIElement)PaperGrid.Parent);
 
-            if (newZoom >= minZoom && newZoom <= maxZoom)
-            {
-                zoomFactor = newZoom;
-                PaperScale.ScaleX = zoomFactor;
-                PaperScale.ScaleY = zoomFactor;
-            }
+            double oldZoom = zoomFactor;
+            zoomFactor += e.Delta > 0 ? zoomStep : -zoomStep;
+            zoomFactor = Clamp(zoomFactor, minZoom, maxZoom);
+
+            double scaleRatio = zoomFactor / oldZoom;
+
+            PaperTransform.X = (PaperTransform.X - mousePosBeforeZoom.X) * scaleRatio + mousePosBeforeZoom.X;
+            PaperTransform.Y = (PaperTransform.Y - mousePosBeforeZoom.Y) * scaleRatio + mousePosBeforeZoom.Y;
+
+            PaperScale.ScaleX = zoomFactor;
+            PaperScale.ScaleY = zoomFactor;
         }
 
         private void BtnZurueck_Click(object sender, RoutedEventArgs e)
@@ -87,6 +91,7 @@ namespace AbstractApp
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             var clickPos = Mouse.GetPosition(PaperGrid);
+
 
             TextBox textBox = new TextBox
             {
@@ -123,5 +128,11 @@ namespace AbstractApp
         {
             MessageBox.Show("Eintrag wird gelöscht...");
         }
+
+        public static double Clamp(double value, double min, double max)
+        {
+            return Math.Max(min, Math.Min(max, value));
+        }
+
     }
 }
