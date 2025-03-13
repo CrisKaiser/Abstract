@@ -14,11 +14,18 @@ namespace AbstractApp
         private Point dragStart;
         private double startX, startY;
 
+        private double zoomFactor = 1.0;
+        private readonly double zoomStep = 0.1;
+        private readonly double minZoom = 0.2;  
+        private readonly double maxZoom = 5.0;
+
         public ProjektDetails(Projekt projekt)
         {
             InitializeComponent();
             ProjektNameText.Text = $"Projekt: {projekt.Name}";
             ErstellungsdatumText.Text = $"Erstellt am: {projekt.Erstellungsdatum.ToShortDateString()}";
+
+            this.MouseWheel += Window_MouseWheel;
         }
 
         private void PaperGrid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -48,6 +55,19 @@ namespace AbstractApp
             {
                 isDragging = false;
                 PaperGrid.ReleaseMouseCapture();
+            }
+        }
+
+        private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            double zoomDelta = e.Delta > 0 ? zoomStep : -zoomStep;
+            double newZoom = zoomFactor + zoomDelta;
+
+            if (newZoom >= minZoom && newZoom <= maxZoom)
+            {
+                zoomFactor = newZoom;
+                PaperScale.ScaleX = zoomFactor;
+                PaperScale.ScaleY = zoomFactor;
             }
         }
 
