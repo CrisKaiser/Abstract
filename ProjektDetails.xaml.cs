@@ -13,6 +13,8 @@ namespace AbstractApp
         private Point dragStart;
         private double startX, startY;
 
+        private Point clickPosition;
+
         private double zoomFactor = 1.0;
         private readonly double zoomStep = 0.01;
         private readonly double minZoom = 0.2;  
@@ -87,9 +89,14 @@ namespace AbstractApp
             PaperTransform.Y = (ActualHeight - PaperGrid.ActualHeight) / 2;
         }
 
+        private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.clickPosition = Mouse.GetPosition(PaperGrid);
+        }
+
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
-            var clickPos = Mouse.GetPosition(PaperGrid);
+            var clickPos = this.clickPosition;
 
 
             TextBox textBox = new TextBox
@@ -127,6 +134,11 @@ namespace AbstractApp
         private void MenuItem_EintragLoeschen_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Eintrag wird gelöscht...");
+        }
+
+        private void MenuItem_EintragVerschieben_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Eintrag wird verschoben...");
         }
 
         public static double Clamp(double value, double min, double max)

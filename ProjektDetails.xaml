@@ -7,7 +7,8 @@
         MouseDown="PaperGrid_MouseDown"
         MouseMove="PaperGrid_MouseMove"
         MouseUp="PaperGrid_MouseUp"
-        MouseWheel="Window_MouseWheel">
+        MouseWheel="Window_MouseWheel"
+        MouseRightButtonDown="Window_MouseRightButtonDown">
 
     <Window.Resources>
         <Style x:Key="RoundedTextBoxStyle" TargetType="TextBox">
@@ -75,6 +76,7 @@
                     <ContextMenu>
                         <MenuItem Header="Eintrag hinzufügen" Click="MenuItem_EintragHinzufuegen_Click"/>
                         <MenuItem Header="Eintrag bearbeiten" Click="MenuItem_EintragBearbeiten_Click"/>
+                        <MenuItem Header="Eintrag verschieben" Click="MenuItem_EintragVerschieben_Click"/>
                         <MenuItem Header="Eintrag löschen" Click="MenuItem_EintragLoeschen_Click"/>
                     </ContextMenu>
                 </Grid.ContextMenu>
