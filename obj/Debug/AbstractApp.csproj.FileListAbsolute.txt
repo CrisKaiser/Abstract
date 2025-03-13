@@ -45,3 +45,7 @@ C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\bin\Debu
 C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\bin\Debug\System.Reactive.Windows.Forms.xml
 C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\Einstellungen.baml
 C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\Einstellungen.g.cs
+C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\AbstractApp_MarkupCompile.lref
+C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\EditableTextBox.baml
+C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\themes\Generic.baml

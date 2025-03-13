@@ -97,32 +97,7 @@ namespace AbstractApp
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             var clickPos = this.clickPosition;
-
-
-            TextBox textBox = new TextBox
-            {
-                Width = 150,
-                Background = Brushes.White,
-                BorderBrush = Brushes.Black,
-                Margin = new Thickness(clickPos.X, clickPos.Y, 0, 0),
-                VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Padding = new Thickness(5),
-                TextWrapping = TextWrapping.Wrap,
-                AcceptsReturn = true,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
-                Style = (Style)FindResource("RoundedTextBoxStyle")
-            };
-
-            textBox.Height = textBox.FontSize + textBox.Padding.Top + textBox.Padding.Bottom;
-
-            textBox.TextChanged += (s, args) =>
-            {
-                double lineHeight = textBox.FontSize + 5; // +5 für Zeilenabstand
-                int lineCount = textBox.LineCount;
-                textBox.Height = (lineCount * lineHeight) + textBox.Padding.Top + textBox.Padding.Bottom;
-            };
-
+            var textBox = new SmartTextBox(clickPos);
             PaperGrid.Children.Add(textBox);
         }
 

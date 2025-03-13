@@ -10,30 +10,11 @@
         MouseWheel="Window_MouseWheel"
         MouseRightButtonDown="Window_MouseRightButtonDown">
 
-    <Window.Resources>
-        <Style x:Key="RoundedTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border CornerRadius="8" 
-                            BorderThickness="1" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            Background="{TemplateBinding Background}">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                    Padding="{TemplateBinding Padding}"
-                                    VerticalScrollBarVisibility="Hidden"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-
     <Grid>
         <Canvas>
             <Grid x:Name="PaperGrid"
-                  Width="5000"
-                  Height="5000"
+                  Width="2000"
+                  Height="2000"
                   Panel.ZIndex="0">
 
                 <Grid.RenderTransform>
