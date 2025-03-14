@@ -72,12 +72,14 @@ namespace AbstractApp
         private void HideKontrolleiste()
         {
             Kontrolle.Visibility = Visibility.Collapsed;
+            TextBox.IsReadOnly = true;
             
         }
 
         public void ShowKontrolleiste()
         {
-            Kontrolle.Visibility = Visibility.Visible;
+            Kontrolle.Visibility = Visibility.Visible; 
+            TextBox.IsReadOnly = false;
         }
 
     }

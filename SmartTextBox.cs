@@ -20,6 +20,7 @@ namespace AbstractApp
         {
             InitializeTextBox(position);
             SetupEvents();
+            IsReadOnly = false;
         }
 
         private void InitializeTextBox(Point position)
@@ -76,5 +77,6 @@ namespace AbstractApp
             FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
             Keyboard.ClearFocus();
         }
+
     }
 }

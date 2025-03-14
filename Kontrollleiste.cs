@@ -33,10 +33,9 @@ namespace AbstractApp
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
 
-            // Pfeil-Buttons
-            var btnLarger = CreateIconButton("M7 4L0 8 0 0 7 4", Brushes.Gray);
-            var btnSmaller = CreateIconButton("M0 4L7 0 7 8 0 4", Brushes.Gray);
-            var btnCheck = CreateIconButton("M0 5.5L3 9 10 0 9 0 3 7.5 1 4 0 5.5", Brushes.Green);
+            var btnLarger = CreateIconButton("M4 0L0 6H8L4 0Z", Brushes.Gray); 
+            var btnSmaller = CreateIconButton("M4 6L0 0H8L4 6Z", Brushes.Gray);  
+            var btnCheck = CreateIconButton("M2 5L4.5 8L9 2L8 1L4.5 6L3 4L2 5Z", Brushes.Green); 
 
             btnLarger.Click += (s, e) => LargerClicked?.Invoke(this, e);
             btnSmaller.Click += (s, e) => SmallerClicked?.Invoke(this, e);
