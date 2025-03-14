@@ -8,7 +8,16 @@ namespace AbstractApp
 {
     public partial class ProjektDetails : Window
     {
-        
+        public enum LayerMode
+        {
+            DefaultMode,    
+            EditMode,       
+            TranslateMode,  
+            DeleteMode      
+        };
+
+        private LayerMode currentLayerMode = LayerMode.DefaultMode;
+
         private bool isDragging = false;
         private Point dragStart;
         private double startX, startY;
@@ -30,6 +39,7 @@ namespace AbstractApp
             this.PreviewMouseDown += MainWindow_PreviewMouseDown;
         }
 
+
         private void MainWindow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource is FrameworkElement element && !(element is SmartTextBox))
@@ -41,6 +51,14 @@ namespace AbstractApp
                         smartTextBox.RemoveFocus();
                     }
                 }
+            }
+        }
+
+        private void PaperGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if (currentLayerMode != LayerMode.DefaultMode)
+            {
+                e.Handled = true;
             }
         }
 
@@ -102,11 +120,24 @@ namespace AbstractApp
         {
             PaperTransform.X = (ActualWidth - PaperGrid.ActualWidth) / 2;
             PaperTransform.Y = (ActualHeight - PaperGrid.ActualHeight) / 2;
+            SetFertigButtonVisibility(false);
         }
 
         private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.clickPosition = Mouse.GetPosition(PaperGrid);
+        }
+
+        private void BtnFertig_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Fertig geklickt!");
+            currentLayerMode = LayerMode.DefaultMode;
+            SetFertigButtonVisibility(false);
+        }
+
+        public void SetFertigButtonVisibility(bool isVisible)
+        {
+            BtnFertig.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
@@ -120,16 +151,22 @@ namespace AbstractApp
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Eintrag wird bearbeitet...");
+            currentLayerMode = LayerMode.EditMode;
+            SetFertigButtonVisibility(true);
         }
 
         private void MenuItem_EintragLoeschen_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Eintrag wird gelöscht...");
+            currentLayerMode = LayerMode.DeleteMode;
+            SetFertigButtonVisibility(true);
         }
 
         private void MenuItem_EintragVerschieben_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Eintrag wird verschoben...");
+            currentLayerMode = LayerMode.TranslateMode;
+            SetFertigButtonVisibility(true);
         }
 
         public static double Clamp(double value, double min, double max)

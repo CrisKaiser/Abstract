@@ -15,7 +15,9 @@
             <Grid x:Name="PaperGrid"
                   Width="2000"
                   Height="2000"
-                  Panel.ZIndex="0">
+                  Panel.ZIndex="0"
+                  ContextMenuOpening="PaperGrid_ContextMenuOpening"
+                  >
 
                 <Grid.RenderTransform>
                     <TransformGroup>
@@ -73,5 +75,9 @@
         <Button Content="Zurück" Width="100" Height="40" Click="BtnZurueck_Click"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                 Margin="20" Panel.ZIndex="1"/>
+
+        <Button x:Name="BtnFertig" Content="Fertig" Width="100" Height="40" Click="BtnFertig_Click"
+        HorizontalAlignment="Right" VerticalAlignment="Top" 
+        Margin="20" Panel.ZIndex="1" Visibility="Collapsed"/>
     </Grid>
 </Window>

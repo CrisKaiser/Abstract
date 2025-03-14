@@ -45,7 +45,7 @@ namespace AbstractApp
 
             Kontrolle = new Kontrollleiste(heightKontrolle)
             {
-                HorizontalAlignment = HorizontalAlignment.Right, 
+                HorizontalAlignment = HorizontalAlignment.Left, 
                 Margin = new Thickness(0, 0, 0, 5) 
             };
 
