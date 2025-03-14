@@ -66,12 +66,24 @@ namespace AbstractApp
             Kontrolle.LargerClicked += (s, e) => largerClickHandler();
             Kontrolle.SmallerClicked += (s, e) => smallerClickHandler();
             Kontrolle.CheckClicked += (s, e) => checkedHandler();
+            Kontrolle.DeleteClicked += (s, e) => deleteHandler();
+            Kontrolle.TranslateClicked += (s, e) => translateHandler();
         }
 
         private void largerClickHandler()
         {
             TextBox.increaseFontSize();
             TextBox.fontSizeChangeReceiver();
+        }
+
+        private void deleteHandler()
+        {
+            Delete();
+        }
+
+        private void translateHandler()
+        {
+
         }
 
         private void smallerClickHandler()

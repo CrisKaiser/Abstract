@@ -51,12 +51,9 @@ namespace AbstractApp
         {
             if (e.OriginalSource is FrameworkElement element && !(element is SmartTextBox))
                 {
-                foreach (var child in this.PaperGrid.Children)
+                foreach (var eintrag in eintraege)
                 {
-                    if (child is SmartTextBox smartTextBox)
-                    {
-                        smartTextBox.RemoveFocus();
-                    }
+                    eintrag.TextBox.RemoveFocus();
                 }
             }
         }
@@ -64,17 +61,13 @@ namespace AbstractApp
         private void checkIsEditing()
         {
             isEditing = false;
-            foreach (var child in this.PaperGrid.Children)
+            foreach (var eintrag in eintraege)
             {
-                if (child is Eintrag eintrag)
+                if (eintrag.TextBox.IsReadOnly == false)
                 {
-                    if(eintrag.TextBox.IsReadOnly == false)
-                    {
-                        isEditing = true;
-                    }
+                    isEditing = true;
                 }
             }
-
         }
 
         private void PaperGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
