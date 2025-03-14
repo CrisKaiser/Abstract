@@ -112,9 +112,9 @@ namespace AbstractApp
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             var clickPos = this.clickPosition;
-            var textBox = new SmartTextBox(clickPos);
-            PaperGrid.Children.Add(textBox);
-            textBox.Focus();
+            var eintrag = new Eintrag(clickPos);
+            PaperGrid.Children.Add(eintrag);
+            eintrag.TextBox.Focus();
         }
 
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
