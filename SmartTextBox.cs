@@ -28,7 +28,6 @@ namespace AbstractApp
 
         private void InitializeTextBox(Point position)
         {
-            Width = 150;
             Background = Brushes.White;
             BorderBrush = Brushes.Black;
             Margin = new Thickness(position.X, position.Y, 0, 0);
@@ -40,6 +39,7 @@ namespace AbstractApp
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             FontSize = fontSizeDefault;
             UpdateHeight();
+            updateWidth();
         }
 
         public void updateHeight(Point position)
@@ -67,7 +67,7 @@ namespace AbstractApp
         private void UpdateHeight()
         {
             double fontSize = Math.Max(1, FontSize);
-            double lineHeight = fontSize + 5.0/12.0 * fontSize;
+            double lineHeight = fontSize + 5.0/fontSizeDefault * fontSize;
             int lineCount = Math.Max(1, LineCount);
             double paddingTop = Math.Max(0, Padding.Top);
             double paddingBottom = Math.Max(0, Padding.Bottom);
@@ -75,9 +75,15 @@ namespace AbstractApp
             Height = Math.Max(1, newHeight);
         }
 
+        private void updateWidth()
+        {
+            Width = 150.0 / fontSizeDefault * FontSize;
+        }
+
         public void fontSizeChangeReceiver()
         {
             UpdateHeight();
+            updateWidth();
         }
 
         public void RemoveFocus()
