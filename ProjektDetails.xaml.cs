@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reactive;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,15 +12,15 @@ namespace AbstractApp
     {
         public enum LayerMode
         {
-            DefaultMode,    
-            EditMode,       
-            TranslateMode,  
-            DeleteMode      
+            DefaultMode,
+            EditMode,
+            TranslateMode,
+            DeleteMode
         };
 
         private bool isEditing = false;
 
-        private LayerMode currentLayerMode = LayerMode.DefaultMode;
+        public LayerMode currentLayerMode = LayerMode.DefaultMode;
 
         private bool isDragging = false;
         private Point dragStart;
@@ -28,8 +30,11 @@ namespace AbstractApp
 
         private double zoomFactor = 1.0;
         private readonly double zoomStep = 0.01;
-        private readonly double minZoom = 0.2;  
+        private readonly double minZoom = 0.2;
         private readonly double maxZoom = 5.0;
+
+
+        public List<Eintrag> eintraege = new List<Eintrag>();
 
         public ProjektDetails(Projekt projekt)
         {
@@ -149,7 +154,7 @@ namespace AbstractApp
 
         private void BtnFertig_Click(object sender, RoutedEventArgs e)
         {
-            currentLayerMode = LayerMode.DefaultMode;
+            setLayerMode(LayerMode.DefaultMode);
             SetFertigButtonVisibility(false);
         }
 
@@ -161,32 +166,47 @@ namespace AbstractApp
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             var clickPos = this.clickPosition;
-            var eintrag = new Eintrag(clickPos);
+            var eintrag = new Eintrag(clickPos, this);
             PaperGrid.Children.Add(eintrag);
             eintrag.TextBox.Focus();
         }
 
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
         {
-            currentLayerMode = LayerMode.EditMode;
+            setLayerMode(LayerMode.EditMode);
             SetFertigButtonVisibility(true);
         }
 
         private void MenuItem_EintragLoeschen_Click(object sender, RoutedEventArgs e)
         {
-            currentLayerMode = LayerMode.DeleteMode;
+            setLayerMode(LayerMode.DeleteMode);
             SetFertigButtonVisibility(true);
         }
 
         private void MenuItem_EintragVerschieben_Click(object sender, RoutedEventArgs e)
         {
-            currentLayerMode = LayerMode.TranslateMode;
+            setLayerMode(LayerMode.TranslateMode);
             SetFertigButtonVisibility(true);
+        }
+
+        private void setLayerMode(LayerMode layerMode) {
+            currentLayerMode = layerMode;
+
+            foreach (var e in eintraege)
+            {
+                e.notifyOnStateUpdate();
+            }
         }
 
         public static double Clamp(double value, double min, double max)
         {
             return Math.Max(min, Math.Min(max, value));
+        }
+        public void eintragRegister(Eintrag e)
+        {
+            if (!eintraege.Contains(e)){
+                eintraege.Add(e);
+            }
         }
 
     }

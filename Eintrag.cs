@@ -11,6 +11,9 @@ namespace AbstractApp
         public SmartTextBox TextBox { get; private set; }
         public Kontrollleiste Kontrolle { get; private set; }
 
+        private ProjektDetails pDetail; 
+
+
         public double X
         {
             get => Margin.Left;
@@ -23,10 +26,12 @@ namespace AbstractApp
             set => Margin = new Thickness(X, value, 0, 0);
         }
 
-        public Eintrag(Point position)
+        public Eintrag(Point position, ProjektDetails pDetail)
         {
             InitializeLayout(position);
             SetupEvents();
+            this.pDetail = pDetail;
+            pDetail.eintragRegister(this);
         }
 
         private void InitializeLayout(Point position)
@@ -85,13 +90,48 @@ namespace AbstractApp
         {
             Kontrolle.Visibility = Visibility.Collapsed;
             TextBox.IsReadOnly = true;
-            
+
         }
 
         public void ShowKontrolleiste()
         {
-            Kontrolle.Visibility = Visibility.Visible; 
+            Kontrolle.Visibility = Visibility.Visible;
             TextBox.IsReadOnly = false;
+        }
+
+        public void notifyOnStateUpdate()
+        {
+            if (pDetail.currentLayerMode == ProjektDetails.LayerMode.DeleteMode)
+            {
+                Kontrolle.setCurrentMode(Kontrollleiste.ControlMode.DeleteMode);
+                Kontrolle.Visibility = Visibility.Visible;
+            }
+            else if (pDetail.currentLayerMode == ProjektDetails.LayerMode.TranslateMode)
+            {
+                Kontrolle.setCurrentMode(Kontrollleiste.ControlMode.TranslateMode);
+                Kontrolle.Visibility = Visibility.Visible;
+            }
+            else if (pDetail.currentLayerMode == ProjektDetails.LayerMode.EditMode)
+            {
+                Kontrolle.setCurrentMode(Kontrollleiste.ControlMode.EditMode);
+                Kontrolle.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Kontrolle.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        public void Delete()
+        {
+            Children.Remove(TextBox);
+            Children.Remove(Kontrolle);
+            if (pDetail != null)
+            {
+                pDetail.eintraege.Remove(this);
+            }
+            TextBox = null;
+            Kontrolle = null;
         }
 
     }
