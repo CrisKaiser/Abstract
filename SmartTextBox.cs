@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace AbstractApp
@@ -34,24 +35,41 @@ namespace AbstractApp
             AcceptsReturn = true;
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
 
-            // Initiale Höhe berechnen
             UpdateHeight();
         }
 
         private void SetupEvents()
         {
             TextChanged += (s, e) => UpdateHeight();
+            GotFocus += SmartTextBox_GotFocus;
+            LostFocus += SmartTextBox_LostFocus;
+        }
+
+        private void SmartTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            BorderBrush = Brushes.Blue; 
+        }
+
+        private void SmartTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            BorderBrush = Brushes.Black; 
         }
 
         private void UpdateHeight()
         {
-            double fontSize = Math.Max(1, FontSize); 
+            double fontSize = Math.Max(1, FontSize);
             double lineHeight = fontSize + 5;
             int lineCount = Math.Max(1, LineCount);
             double paddingTop = Math.Max(0, Padding.Top);
             double paddingBottom = Math.Max(0, Padding.Bottom);
             double newHeight = (lineCount * lineHeight) + paddingTop + paddingBottom;
-            Height = Math.Max(1, newHeight); 
+            Height = Math.Max(1, newHeight);
+        }
+
+        public void RemoveFocus()
+        {
+            FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
+            Keyboard.ClearFocus();
         }
     }
 }

@@ -49,3 +49,4 @@ C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debu
 C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\EditableTextBox.baml
 C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\themes\Generic.baml
+C:\Users\crisk\Documents\Projects\Abstract\code\AbstractApp\AbstractApp\obj\Debug\App.baml

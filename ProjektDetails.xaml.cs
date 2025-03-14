@@ -27,6 +27,21 @@ namespace AbstractApp
             ErstellungsdatumText.Text = $"Erstellt am: {projekt.Erstellungsdatum.ToShortDateString()}";
 
             this.MouseWheel += Window_MouseWheel;
+            this.PreviewMouseDown += MainWindow_PreviewMouseDown;
+        }
+
+        private void MainWindow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.OriginalSource is FrameworkElement element && !(element is SmartTextBox))
+                {
+                foreach (var child in this.PaperGrid.Children)
+                {
+                    if (child is SmartTextBox smartTextBox)
+                    {
+                        smartTextBox.RemoveFocus();
+                    }
+                }
+            }
         }
 
         private void PaperGrid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -99,6 +114,7 @@ namespace AbstractApp
             var clickPos = this.clickPosition;
             var textBox = new SmartTextBox(clickPos);
             PaperGrid.Children.Add(textBox);
+            textBox.Focus();
         }
 
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
