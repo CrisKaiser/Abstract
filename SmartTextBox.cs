@@ -38,6 +38,11 @@ namespace AbstractApp
             UpdateHeight();
         }
 
+        public void updateHeight(Point position)
+        {
+            Margin = new Thickness(position.X, position.Y, 0, 0);
+        }
+
         private void SetupEvents()
         {
             TextChanged += (s, e) => UpdateHeight();

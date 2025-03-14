@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace AbstractApp
@@ -11,8 +12,11 @@ namespace AbstractApp
         public event RoutedEventHandler SmallerClicked;
         public event RoutedEventHandler CheckClicked;
 
-        public Kontrollleiste()
+        public int heightKontrolle;
+
+        public Kontrollleiste(int heightKontrolle)
         {
+            this.heightKontrolle = heightKontrolle;
             InitializeUI();
         }
 
@@ -22,7 +26,7 @@ namespace AbstractApp
             CornerRadius = new CornerRadius(3);
             Padding = new Thickness(3);
             Width = 80;
-            Height = 24;
+            Height = this.heightKontrolle;
 
             var grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
@@ -65,5 +69,6 @@ namespace AbstractApp
             };
             return button;
         }
+
     }
 }

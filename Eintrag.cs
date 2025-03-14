@@ -7,6 +7,7 @@ namespace AbstractApp
 {
     public class Eintrag : Grid
     {
+        private int heightKontrolle = 24; 
         public SmartTextBox TextBox { get; private set; }
         public Kontrollleiste Kontrolle { get; private set; }
 
@@ -29,32 +30,27 @@ namespace AbstractApp
         }
 
         private void InitializeLayout(Point position)
-        {
-            // Positionierung des gesamten Eintrags
+        {   
             Margin = new Thickness(position.X, position.Y, 0, 0);
             VerticalAlignment = VerticalAlignment.Top;
             HorizontalAlignment = HorizontalAlignment.Left;
 
-            // Grid-Layout mit zwei Zeilen und einer Spalte
-            RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto }); // Für die Kontrollleiste
-            RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto }); // Für die TextBox
+            RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto }); 
 
-            // SmartTextBox erstellen
             TextBox = new SmartTextBox(new Point(0, 0))
             {
-                Margin = new Thickness(0) // Margin der Textbox zurücksetzen
+                Margin = new Thickness(0) 
             };
 
-            // Kontrollleiste erstellen
-            Kontrolle = new Kontrollleiste()
+            Kontrolle = new Kontrollleiste(heightKontrolle)
             {
-                HorizontalAlignment = HorizontalAlignment.Right, // Rechtsbündig ausrichten
-                Margin = new Thickness(0, 0, 0, 5) // Optional: Abstand nach unten
+                HorizontalAlignment = HorizontalAlignment.Right, 
+                Margin = new Thickness(0, 0, 0, 5) 
             };
 
-            // Elemente ins Grid einfügen
-            Grid.SetRow(TextBox, 1); // TextBox in der zweiten Zeile
-            Grid.SetRow(Kontrolle, 0); // Kontrollleiste in der ersten Zeile
+            Grid.SetRow(TextBox, 1); 
+            Grid.SetRow(Kontrolle, 0); 
 
             Children.Add(TextBox);
             Children.Add(Kontrolle);
@@ -64,7 +60,25 @@ namespace AbstractApp
         {
             Kontrolle.LargerClicked += (s, e) => TextBox.FontSize += 1;
             Kontrolle.SmallerClicked += (s, e) => TextBox.FontSize = Math.Max(1, TextBox.FontSize - 1);
-            Kontrolle.CheckClicked += (s, e) => TextBox.RemoveFocus();
+            Kontrolle.CheckClicked += (s, e) => checkedHandler();
         }
+
+        private void checkedHandler()
+        {
+            TextBox.RemoveFocus();
+            HideKontrolleiste();
+        }
+
+        private void HideKontrolleiste()
+        {
+            Kontrolle.Visibility = Visibility.Collapsed;
+            
+        }
+
+        public void ShowKontrolleiste()
+        {
+            Kontrolle.Visibility = Visibility.Visible;
+        }
+
     }
 }
