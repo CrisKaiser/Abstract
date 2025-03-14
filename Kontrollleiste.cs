@@ -55,16 +55,24 @@ namespace AbstractApp
             {
                 case ControlMode.EditMode:
                     Child = CreateEditModeContent();
+                    updateWidth(80);
                     break;
                 case ControlMode.TranslateMode:
                     Child = CreateTranslateModeContent();
+                    updateWidth(24);
                     break;
                 case ControlMode.DeleteMode:
                     Child = CreateDeleteModeContent();
+                    updateWidth(24);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void updateWidth(int _width)
+        {
+            Width = _width;
         }
 
 
@@ -99,6 +107,11 @@ namespace AbstractApp
             var button = CreateIconButton(
                 "M4 0 L4 8 M0 4 L8 4 M4 0 L2 2 M4 0 L6 2 M4 8 L2 6 M4 8 L6 6 M0 4 L2 6 M0 4 L2 2 M8 4 L6 2 M8 4 L6 6",
                 Brushes.Blue);
+            button.Width = 16;
+            button.Height = 16;
+            button.HorizontalAlignment = HorizontalAlignment.Left;
+            button.VerticalAlignment = VerticalAlignment.Center;
+            button.Margin = new Thickness(0, 0, 0, 0);
             button.Click += (s, e) => TranslateClicked?.Invoke(this, e);
             return button;
         }
@@ -106,9 +119,15 @@ namespace AbstractApp
         private UIElement CreateDeleteModeContent()
         {
             var button = CreateIconButton("M0 0 L8 8 M8 0 L0 8", Brushes.Red);
+            button.Width = 16; 
+            button.Height = 16; 
+            button.HorizontalAlignment = HorizontalAlignment.Left; 
+            button.VerticalAlignment = VerticalAlignment.Center;
+            button.Margin = new Thickness(0, 0, 0, 0); 
             button.Click += (s, e) => DeleteClicked?.Invoke(this, e);
             return button;
         }
+
 
         private Button CreateIconButton(string pathData, Brush color)
         {
