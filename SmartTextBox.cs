@@ -8,7 +8,10 @@ namespace AbstractApp
 {
     public class SmartTextBox : TextBox
     {
-        // Statischer Konstruktor für den Style
+        private int fontSizeDefault = 12;
+        private int fontSizeMin = 10;
+        private int fontSizeMax = 22;
+
         static SmartTextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
@@ -35,7 +38,7 @@ namespace AbstractApp
             TextWrapping = TextWrapping.Wrap;
             AcceptsReturn = true;
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
-
+            FontSize = fontSizeDefault;
             UpdateHeight();
         }
 
@@ -64,7 +67,7 @@ namespace AbstractApp
         private void UpdateHeight()
         {
             double fontSize = Math.Max(1, FontSize);
-            double lineHeight = fontSize + 5;
+            double lineHeight = fontSize + 5.0/12.0 * fontSize;
             int lineCount = Math.Max(1, LineCount);
             double paddingTop = Math.Max(0, Padding.Top);
             double paddingBottom = Math.Max(0, Padding.Bottom);
@@ -72,10 +75,27 @@ namespace AbstractApp
             Height = Math.Max(1, newHeight);
         }
 
+        public void fontSizeChangeReceiver()
+        {
+            UpdateHeight();
+        }
+
         public void RemoveFocus()
         {
             FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), null);
             Keyboard.ClearFocus();
+        }
+
+        public void decreaseFontSize()
+        {
+            if (FontSize > fontSizeMin)
+                FontSize -= 1;
+        }
+
+        public void increaseFontSize()
+        {
+            if (FontSize < fontSizeMax)
+                FontSize += 1;
         }
 
     }

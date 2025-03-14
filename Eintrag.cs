@@ -58,9 +58,21 @@ namespace AbstractApp
 
         private void SetupEvents()
         {
-            Kontrolle.LargerClicked += (s, e) => TextBox.FontSize += 1;
-            Kontrolle.SmallerClicked += (s, e) => TextBox.FontSize = Math.Max(1, TextBox.FontSize - 1);
+            Kontrolle.LargerClicked += (s, e) => largerClickHandler();
+            Kontrolle.SmallerClicked += (s, e) => smallerClickHandler();
             Kontrolle.CheckClicked += (s, e) => checkedHandler();
+        }
+
+        private void largerClickHandler()
+        {
+            TextBox.increaseFontSize();
+            TextBox.fontSizeChangeReceiver();
+        }
+
+        private void smallerClickHandler()
+        {
+            TextBox.decreaseFontSize();
+            TextBox.fontSizeChangeReceiver();
         }
 
         private void checkedHandler()
