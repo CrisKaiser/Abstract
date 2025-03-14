@@ -16,6 +16,8 @@ namespace AbstractApp
             DeleteMode      
         };
 
+        private bool isEditing = false;
+
         private LayerMode currentLayerMode = LayerMode.DefaultMode;
 
         private bool isDragging = false;
@@ -54,9 +56,26 @@ namespace AbstractApp
             }
         }
 
+        private void checkIsEditing()
+        {
+            isEditing = false;
+            foreach (var child in this.PaperGrid.Children)
+            {
+                if (child is Eintrag eintrag)
+                {
+                    if(eintrag.TextBox.IsReadOnly == false)
+                    {
+                        isEditing = true;
+                    }
+                }
+            }
+
+        }
+
         private void PaperGrid_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            if (currentLayerMode != LayerMode.DefaultMode)
+            checkIsEditing();
+            if (currentLayerMode != LayerMode.DefaultMode || isEditing == true)
             {
                 e.Handled = true;
             }
@@ -130,7 +149,6 @@ namespace AbstractApp
 
         private void BtnFertig_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Fertig geklickt!");
             currentLayerMode = LayerMode.DefaultMode;
             SetFertigButtonVisibility(false);
         }
@@ -150,21 +168,18 @@ namespace AbstractApp
 
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Eintrag wird bearbeitet...");
             currentLayerMode = LayerMode.EditMode;
             SetFertigButtonVisibility(true);
         }
 
         private void MenuItem_EintragLoeschen_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Eintrag wird gelöscht...");
             currentLayerMode = LayerMode.DeleteMode;
             SetFertigButtonVisibility(true);
         }
 
         private void MenuItem_EintragVerschieben_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Eintrag wird verschoben...");
             currentLayerMode = LayerMode.TranslateMode;
             SetFertigButtonVisibility(true);
         }
