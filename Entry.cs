@@ -150,7 +150,6 @@ namespace AbstractApp
         public void ShowControlBar()
         {
             controlBar.Visibility = Visibility.Visible;
-            textField.IsReadOnly = false;
         }
 
         public void NotifyOnStateUpdate()
@@ -158,21 +157,22 @@ namespace AbstractApp
             if (projectPage.currentLayerMode == ProjectPage.LayerMode.DeleteMode)
             {
                 controlBar.SetCurrentControlMode(ControlBar.ControlMode.DeleteMode);
-                controlBar.Visibility = Visibility.Visible;
+                ShowControlBar();
             }
             else if (projectPage.currentLayerMode == ProjectPage.LayerMode.TranslateMode)
             {
                 controlBar.SetCurrentControlMode(ControlBar.ControlMode.TranslateMode);
-                controlBar.Visibility = Visibility.Visible;
+                ShowControlBar();
             }
             else if (projectPage.currentLayerMode == ProjectPage.LayerMode.EditMode)
             {
                 controlBar.SetCurrentControlMode(ControlBar.ControlMode.EditMode);
-                controlBar.Visibility = Visibility.Visible;
+                ShowControlBar();
+                textField.IsReadOnly = false;
             }
             else
             {
-                controlBar.Visibility = Visibility.Collapsed;
+                HideControlBar();
             }
         }
 
