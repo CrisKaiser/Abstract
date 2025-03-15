@@ -107,14 +107,22 @@ namespace AbstractApp
             var button = CreateIconButton(
                 "M4 0 L4 8 M0 4 L8 4 M4 0 L2 2 M4 0 L6 2 M4 8 L2 6 M4 8 L6 6 M0 4 L2 6 M0 4 L2 2 M8 4 L6 2 M8 4 L6 6",
                 Brushes.Blue);
+
             button.Width = 16;
             button.Height = 16;
-            button.HorizontalAlignment = HorizontalAlignment.Left;
+            button.HorizontalAlignment = HorizontalAlignment.Center;
             button.VerticalAlignment = VerticalAlignment.Center;
-            button.Margin = new Thickness(0, 0, 0, 0);
-            button.Click += (s, e) => TranslateClicked?.Invoke(this, e);
+            button.Margin = new Thickness(0);
+
+            button.PreviewMouseLeftButtonDown += (s, e) =>
+            {
+                TranslateClicked?.Invoke(this, e);
+                e.Handled = true;
+            };
+
             return button;
         }
+
 
         private UIElement CreateDeleteModeContent()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace AbstractApp
@@ -11,7 +12,12 @@ namespace AbstractApp
         public SmartTextBox TextBox { get; private set; }
         public Kontrollleiste Kontrolle { get; private set; }
 
-        private ProjektDetails pDetail; 
+        private ProjektDetails pDetail;
+
+        private Point _translationStart;
+        private double _originalX;
+        private double _originalY;
+        private bool _isTranslating;
 
 
         public double X
@@ -67,7 +73,7 @@ namespace AbstractApp
             Kontrolle.SmallerClicked += (s, e) => smallerClickHandler();
             Kontrolle.CheckClicked += (s, e) => checkedHandler();
             Kontrolle.DeleteClicked += (s, e) => deleteHandler();
-            Kontrolle.TranslateClicked += (s, e) => translateHandler();
+            Kontrolle.TranslateClicked += translateHandler;
         }
 
         private void largerClickHandler()
@@ -81,9 +87,47 @@ namespace AbstractApp
             Delete();
         }
 
-        private void translateHandler()
+        private void translateHandler(object sender, RoutedEventArgs e)
         {
+            if (_isTranslating) return;
 
+            var window = Window.GetWindow(this);
+            if (window == null) return;
+
+            _translationStart = Mouse.GetPosition(window);
+            _originalX = X;
+            _originalY = Y;
+
+            Mouse.Capture(this);
+            _isTranslating = true;
+            MouseMove += OnMouseMoveDuringTranslate;
+            MouseLeftButtonUp += OnMouseUpAfterTranslate;
+            e.Handled = true;
+        }
+
+        private void OnMouseMoveDuringTranslate(object sender, MouseEventArgs e)
+        {
+            if (!_isTranslating) return;
+
+            var window = Window.GetWindow(this);
+            if (window == null) return;
+
+            Point currentPosition = e.GetPosition(window);
+            double deltaX = currentPosition.X - _translationStart.X;
+            double deltaY = currentPosition.Y - _translationStart.Y;
+
+            X = _originalX + deltaX;
+            Y = _originalY + deltaY;
+        }
+
+        private void OnMouseUpAfterTranslate(object sender, MouseButtonEventArgs e)
+        {
+            if (!_isTranslating) return;
+            Mouse.Capture(null);
+            _isTranslating = false;
+            MouseMove -= OnMouseMoveDuringTranslate;
+            MouseLeftButtonUp -= OnMouseUpAfterTranslate;
+            e.Handled = true;
         }
 
         private void smallerClickHandler()
