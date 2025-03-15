@@ -97,6 +97,7 @@
     <Compile Include="ControlBarUIFactory.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="ControlBar.cs" />
+    <Compile Include="GlobalMethods.cs" />
     <Compile Include="ProjectSettings.cs" />
     <Compile Include="TextField.cs" />
     <Page Include="SettingsPage.xaml">

@@ -15,7 +15,6 @@ namespace AbstractApp
 
         static ProjektManager()
         {
-            // Erstelle das Verzeichnis, falls es nicht existiert
             string verzeichnis = Path.GetDirectoryName(dateipfad);
             if (!Directory.Exists(verzeichnis))
             {
@@ -41,7 +40,7 @@ namespace AbstractApp
         public static void NeuesProjektHinzufuegen(string name)
         {
             var projekte = LadeProjekte();
-            projekte.Add(new Projekt { Name = name, Erstellungsdatum = DateTime.Now });
+            projekte.Add(new Projekt { Name = name, CreationDate = DateTime.Now });
             SpeichereProjekte(projekte);
         }
     }

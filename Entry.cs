@@ -126,8 +126,11 @@ namespace AbstractApp
             double deltaX = currentPosition.X - _translationStart.X;
             double deltaY = currentPosition.Y - _translationStart.Y;
 
-            X = _originalX + deltaX;
-            Y = _originalY + deltaY;
+            Console.WriteLine(currentPosition.X);
+
+            //hier gehts dann weiter 
+            X = GlobalMethods.Clamp(_originalX + deltaX, 0, ProjectSettings.GridWidth - 195);
+            Y = GlobalMethods.Clamp(_originalY + deltaY, 0, ProjectSettings.GridWidth - 40);
         }
 
         private void OnMouseUpAfterTranslate(object sender, MouseButtonEventArgs e)

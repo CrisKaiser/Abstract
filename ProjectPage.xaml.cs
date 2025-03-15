@@ -40,7 +40,7 @@ namespace AbstractApp
         {
             InitializeComponent();
             ProjektNameText.Text = $"Projekt: {projekt.Name}";
-            ErstellungsdatumText.Text = $"Erstellt am: {projekt.Erstellungsdatum.ToShortDateString()}";
+            ErstellungsdatumText.Text = $"Erstellt am: {projekt.CreationDate.ToShortDateString()}";
 
             this.MouseWheel += Window_MouseWheel;
             this.PreviewMouseDown += MainWindow_PreviewMouseDown;
