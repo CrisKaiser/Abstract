@@ -91,7 +91,7 @@ namespace AbstractApp {
             case 3:
             
             #line 10 "..\..\SettingsPage.xaml"
-            ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.BtnSpeichern_Click);
+            ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.BtnSave_Click);
             
             #line default
             #line hidden

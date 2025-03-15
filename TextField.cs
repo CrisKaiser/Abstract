@@ -11,6 +11,7 @@ namespace AbstractApp
         private int fontSizeDefault = 12;
         private int fontSizeMin = 10;
         private int fontSizeMax = 22;
+        private int textFieldWidthStd = 200;
 
         static TextField()
         {
@@ -21,12 +22,12 @@ namespace AbstractApp
 
         public TextField(Point position)
         {
-            InitializeTextBox(position);
+            InitializeTextField(position);
             SetupEvents();
             IsReadOnly = false;
         }
 
-        private void InitializeTextBox(Point position)
+        private void InitializeTextField(Point position)
         {
             Background = Brushes.White;
             BorderBrush = Brushes.Black;
@@ -38,18 +39,18 @@ namespace AbstractApp
             AcceptsReturn = true;
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             FontSize = fontSizeDefault;
-            UpdateHeight();
-            updateWidth();
+            UpdateTextFieldHeight();
+            UpdateTextFieldWidth();
         }
 
-        public void updateHeight(Point position)
+        public void UpdateTextFieldPosition(Point position)
         {
             Margin = new Thickness(position.X, position.Y, 0, 0);
         }
 
         private void SetupEvents()
         {
-            TextChanged += (s, e) => UpdateHeight();
+            TextChanged += (s, e) => UpdateTextFieldHeight();
             GotFocus += SmartTextBox_GotFocus;
             LostFocus += SmartTextBox_LostFocus;
         }
@@ -64,7 +65,7 @@ namespace AbstractApp
             BorderBrush = Brushes.Black; 
         }
 
-        private void UpdateHeight()
+        private void UpdateTextFieldHeight()
         {
             double fontSize = Math.Max(1, FontSize);
             double lineHeight = fontSize + 5.0/fontSizeDefault * fontSize;
@@ -75,15 +76,15 @@ namespace AbstractApp
             Height = Math.Max(1, newHeight);
         }
 
-        private void updateWidth()
+        private void UpdateTextFieldWidth()
         {
-            Width = 150.0 / fontSizeDefault * FontSize;
+            Width = textFieldWidthStd / fontSizeDefault * FontSize;
         }
 
-        public void fontSizeChangeReceiver()
+        public void FontSizeChangeReceiver()
         {
-            UpdateHeight();
-            updateWidth();
+            UpdateTextFieldHeight();
+            UpdateTextFieldWidth();
         }
 
         public void RemoveFocus()
@@ -96,14 +97,14 @@ namespace AbstractApp
         {
             if (FontSize > fontSizeMin)
                 FontSize -= 1;
-                fontSizeChangeReceiver();
+                FontSizeChangeReceiver();
         }
 
         public void increaseFontSize()
         {
             if (FontSize < fontSizeMax)
                 FontSize += 1;
-                fontSizeChangeReceiver();
+                FontSizeChangeReceiver();
         }
 
     }

@@ -9,22 +9,20 @@ namespace AbstractApp
         public SettingsPage()
         {
             InitializeComponent();
-            LadeSpeicherort();
+            StorageLocation();
         }
 
-        private void LadeSpeicherort()
+        private void StorageLocation()
         {
-            // Lade den gespeicherten Speicherort (falls vorhanden)
-            string speicherort = Properties.Settings.Default.Speicherort;
-            if (!string.IsNullOrEmpty(speicherort))
+            string storageLocation = Properties.Settings.Default.Speicherort;
+            if (!string.IsNullOrEmpty(storageLocation))
             {
-                SpeicherortTextBox.Text = speicherort;
+                SpeicherortTextBox.Text = storageLocation;
             }
         }
 
         private void BtnSpeicherortAuswaehlen_Click(object sender, RoutedEventArgs e)
         {
-            // Öffne einen Dialog zur Auswahl des Speicherorts
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -32,9 +30,8 @@ namespace AbstractApp
             }
         }
 
-        private void BtnSpeichern_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Speichere den ausgewählten Speicherort
             if (!string.IsNullOrEmpty(SpeicherortTextBox.Text))
             {
                 Properties.Settings.Default.Speicherort = SpeicherortTextBox.Text;

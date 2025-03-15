@@ -9,24 +9,24 @@ namespace AbstractApp
             InitializeComponent();
         }
 
-        private void BtnProjektverwaltung_Click(object sender, RoutedEventArgs e)
+        private void ButtonProjectManagement_Click(object sender, RoutedEventArgs e)
         {
-            ProjectManagment projektverwaltungFenster = new ProjectManagment();
-            projektverwaltungFenster.Show();
-            this.Close(); // Hauptmenü schließen
+            ProjectManagment projectManagmentPage = new ProjectManagment();
+            projectManagmentPage.Show();
+            this.Close(); 
         }
 
-        private void BtnNeuesProjekt_Click(object sender, RoutedEventArgs e)
+        private void ButtonNewProject_Click(object sender, RoutedEventArgs e)
         {
-            NewProjectPage neuesProjektFenster = new NewProjectPage();
-            neuesProjektFenster.Show();
-            this.Close(); // Hauptmenü schließen
+            NewProjectPage newProjectPage = new NewProjectPage();
+            newProjectPage.Show();
+            this.Close(); 
         }
 
-        private void BtnEinstellungen_Click(object sender, RoutedEventArgs e)
+        private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {
-            SettingsPage einstellungen = new SettingsPage();
-            einstellungen.Show();
+            SettingsPage settingsPage = new SettingsPage();
+            settingsPage.Show();
         }
 
     }

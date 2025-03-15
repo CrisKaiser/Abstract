@@ -9,16 +9,15 @@ namespace AbstractApp
     public class Entry : Grid
     {
         private int heightKontrolle = 24; 
-        public TextField TextBox { get; private set; }
-        public ControlBar Kontrolle { get; private set; }
+        public TextField textField { get; private set; }
+        public ControlBar controlBar { get; private set; }
 
-        private ProjectPage pDetail;
+        private ProjectPage projectPage;
 
         private Point _translationStart;
         private double _originalX;
         private double _originalY;
         private bool _isTranslating;
-
 
         public double X
         {
@@ -32,15 +31,15 @@ namespace AbstractApp
             set => Margin = new Thickness(X, value, 0, 0);
         }
 
-        public Entry(Point position, ProjectPage pDetail)
+        public Entry(Point position, ProjectPage projectPage)
         {
-            InitializeLayout(position);
+            InitializeEntryLayout(position);
             SetupEvents();
-            this.pDetail = pDetail;
-            pDetail.eintragRegister(this);
+            this.projectPage = projectPage;
+            projectPage.eintragRegister(this);
         }
 
-        private void InitializeLayout(Point position)
+        private void InitializeEntryLayout(Point position)
         {   
             Margin = new Thickness(position.X, position.Y, 0, 0);
             VerticalAlignment = VerticalAlignment.Top;
@@ -49,45 +48,56 @@ namespace AbstractApp
             RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto }); 
 
-            TextBox = new TextField(new Point(0, 0))
+            textField = new TextField(new Point(0, 0))
             {
                 Margin = new Thickness(0) 
             };
 
-            Kontrolle = new ControlBar(heightKontrolle)
+            controlBar = new ControlBar(heightKontrolle)
             {
                 HorizontalAlignment = HorizontalAlignment.Left, 
                 Margin = new Thickness(0, 0, 0, 5) 
             };
 
-            Grid.SetRow(TextBox, 1); 
-            Grid.SetRow(Kontrolle, 0); 
+            Grid.SetRow(textField, 1); 
+            Grid.SetRow(controlBar, 0); 
 
-            Children.Add(TextBox);
-            Children.Add(Kontrolle);
+            Children.Add(textField);
+            Children.Add(controlBar);
         }
 
         private void SetupEvents()
         {
-            Kontrolle.LargerClicked += (s, e) => largerClickHandler();
-            Kontrolle.SmallerClicked += (s, e) => smallerClickHandler();
-            Kontrolle.CheckClicked += (s, e) => checkedHandler();
-            Kontrolle.DeleteClicked += (s, e) => deleteHandler();
-            Kontrolle.TranslateClicked += translateHandler;
+            controlBar.LargerClicked += LargerButtonClickHandler;
+            controlBar.SmallerClicked += SmallerButtonClickHandler;
+            controlBar.CheckClicked += CheckButtonClickHandler;
+            controlBar.DeleteClicked += DeleteButtonClickHandler;
+            controlBar.TranslateClicked += TranslateButtonClickHandler;
         }
 
-        private void largerClickHandler()
+        private void LargerButtonClickHandler(object sender, RoutedEventArgs e)
         {
-            TextBox.increaseFontSize();
-            TextBox.fontSizeChangeReceiver();
+            textField.increaseFontSize();
+            textField.FontSizeChangeReceiver();
         }
 
-        private void deleteHandler()
+        private void DeleteButtonClickHandler(object sender, RoutedEventArgs e)
         {
             Delete();
         }
 
-        private void translateHandler(object sender, RoutedEventArgs e)
+        private void SmallerButtonClickHandler(object sender, RoutedEventArgs e)
+        {
+            textField.decreaseFontSize();
+        }
+
+        private void CheckButtonClickHandler(object sender, RoutedEventArgs e)
+        {
+            textField.RemoveFocus();
+            HideControlBar();
+        }
+
+        private void TranslateButtonClickHandler(object sender, RoutedEventArgs e)
         {
             if (_isTranslating) return;
 
@@ -130,63 +140,52 @@ namespace AbstractApp
             e.Handled = true;
         }
 
-        private void smallerClickHandler()
+        private void HideControlBar()
         {
-            TextBox.decreaseFontSize();
-        }
-
-        private void checkedHandler()
-        {
-            TextBox.RemoveFocus();
-            HideKontrolleiste();
-        }
-
-        private void HideKontrolleiste()
-        {
-            Kontrolle.Visibility = Visibility.Collapsed;
-            TextBox.IsReadOnly = true;
+            controlBar.Visibility = Visibility.Collapsed;
+            textField.IsReadOnly = true;
 
         }
 
-        public void ShowKontrolleiste()
+        public void ShowControlBar()
         {
-            Kontrolle.Visibility = Visibility.Visible;
-            TextBox.IsReadOnly = false;
+            controlBar.Visibility = Visibility.Visible;
+            textField.IsReadOnly = false;
         }
 
-        public void notifyOnStateUpdate()
+        public void NotifyOnStateUpdate()
         {
-            if (pDetail.currentLayerMode == ProjectPage.LayerMode.DeleteMode)
+            if (projectPage.currentLayerMode == ProjectPage.LayerMode.DeleteMode)
             {
-                Kontrolle.SetCurrentControlMode(ControlBar.ControlMode.DeleteMode);
-                Kontrolle.Visibility = Visibility.Visible;
+                controlBar.SetCurrentControlMode(ControlBar.ControlMode.DeleteMode);
+                controlBar.Visibility = Visibility.Visible;
             }
-            else if (pDetail.currentLayerMode == ProjectPage.LayerMode.TranslateMode)
+            else if (projectPage.currentLayerMode == ProjectPage.LayerMode.TranslateMode)
             {
-                Kontrolle.SetCurrentControlMode(ControlBar.ControlMode.TranslateMode);
-                Kontrolle.Visibility = Visibility.Visible;
+                controlBar.SetCurrentControlMode(ControlBar.ControlMode.TranslateMode);
+                controlBar.Visibility = Visibility.Visible;
             }
-            else if (pDetail.currentLayerMode == ProjectPage.LayerMode.EditMode)
+            else if (projectPage.currentLayerMode == ProjectPage.LayerMode.EditMode)
             {
-                Kontrolle.SetCurrentControlMode(ControlBar.ControlMode.EditMode);
-                Kontrolle.Visibility = Visibility.Visible;
+                controlBar.SetCurrentControlMode(ControlBar.ControlMode.EditMode);
+                controlBar.Visibility = Visibility.Visible;
             }
             else
             {
-                Kontrolle.Visibility = Visibility.Collapsed;
+                controlBar.Visibility = Visibility.Collapsed;
             }
         }
 
         public void Delete()
         {
-            Children.Remove(TextBox);
-            Children.Remove(Kontrolle);
-            if (pDetail != null)
+            Children.Remove(textField);
+            Children.Remove(controlBar);
+            if (projectPage != null)
             {
-                pDetail.eintraege.Remove(this);
+                projectPage.eintraege.Remove(this);
             }
-            TextBox = null;
-            Kontrolle = null;
+            textField = null;
+            controlBar = null;
         }
 
     }

@@ -53,7 +53,7 @@ namespace AbstractApp
                 {
                 foreach (var eintrag in eintraege)
                 {
-                    eintrag.TextBox.RemoveFocus();
+                    eintrag.textField.RemoveFocus();
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace AbstractApp
             isEditing = false;
             foreach (var eintrag in eintraege)
             {
-                if (eintrag.TextBox.IsReadOnly == false)
+                if (eintrag.textField.IsReadOnly == false)
                 {
                     isEditing = true;
                 }
@@ -165,7 +165,7 @@ namespace AbstractApp
             var clickPos = this.clickPosition;
             var eintrag = new Entry(clickPos, this);
             PaperGrid.Children.Add(eintrag);
-            eintrag.TextBox.Focus();
+            eintrag.textField.Focus();
         }
 
         private void MenuItem_EintragBearbeiten_Click(object sender, RoutedEventArgs e)
@@ -191,7 +191,7 @@ namespace AbstractApp
 
             foreach (var e in eintraege)
             {
-                e.notifyOnStateUpdate();
+                e.NotifyOnStateUpdate();
             }
         }
 

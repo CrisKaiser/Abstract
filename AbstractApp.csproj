@@ -98,9 +98,7 @@
     <Compile Include="Entry.cs" />
     <Compile Include="ControlBar.cs" />
     <Compile Include="ProjectSettings.cs" />
-    <Compile Include="SizeConverter.cs" />
     <Compile Include="TextField.cs" />
-    <Compile Include="ViewportConverter.cs" />
     <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
