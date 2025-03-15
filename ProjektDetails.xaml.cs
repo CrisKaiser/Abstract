@@ -135,8 +135,12 @@ namespace AbstractApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            PaperTransform.X = (ActualWidth - PaperGrid.ActualWidth) / 2;
-            PaperTransform.Y = (ActualHeight - PaperGrid.ActualHeight) / 2;
+            PaperGrid.Width = ProjectSettings.GridWidth;
+            PaperGrid.Height = ProjectSettings.GridHeight;
+
+            PaperTransform.X = (ActualWidth - PaperGrid.Width) / 2;
+            PaperTransform.Y = (ActualHeight - PaperGrid.Height) / 2;
+
             SetFertigButtonVisibility(false);
         }
 

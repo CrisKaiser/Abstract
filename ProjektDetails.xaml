@@ -13,8 +13,6 @@
     <Grid>
         <Canvas>
             <Grid x:Name="PaperGrid"
-                  Width="2000"
-                  Height="2000"
                   Panel.ZIndex="0"
                   ContextMenuOpening="PaperGrid_ContextMenuOpening"
                   >

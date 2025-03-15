@@ -96,6 +96,7 @@
     </ApplicationDefinition>
     <Compile Include="Eintrag.cs" />
     <Compile Include="Kontrollleiste.cs" />
+    <Compile Include="ProjectSettings.cs" />
     <Compile Include="SizeConverter.cs" />
     <Compile Include="SmartTextBox.cs" />
     <Compile Include="ViewportConverter.cs" />
