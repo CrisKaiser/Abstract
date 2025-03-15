@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace AbstractApp
 {
-    public partial class ProjektDetails : Window
+    public partial class ProjectPage : Window
     {
         public enum LayerMode
         {
@@ -34,9 +34,9 @@ namespace AbstractApp
         private readonly double maxZoom = 5.0;
 
 
-        public List<Eintrag> eintraege = new List<Eintrag>();
+        public List<Entry> eintraege = new List<Entry>();
 
-        public ProjektDetails(Projekt projekt)
+        public ProjectPage(Projekt projekt)
         {
             InitializeComponent();
             ProjektNameText.Text = $"Projekt: {projekt.Name}";
@@ -49,7 +49,7 @@ namespace AbstractApp
 
         private void MainWindow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.OriginalSource is FrameworkElement element && !(element is SmartTextBox))
+            if (e.OriginalSource is FrameworkElement element && !(element is TextField))
                 {
                 foreach (var eintrag in eintraege)
                 {
@@ -163,7 +163,7 @@ namespace AbstractApp
         private void MenuItem_EintragHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             var clickPos = this.clickPosition;
-            var eintrag = new Eintrag(clickPos, this);
+            var eintrag = new Entry(clickPos, this);
             PaperGrid.Children.Add(eintrag);
             eintrag.TextBox.Focus();
         }
@@ -199,7 +199,7 @@ namespace AbstractApp
         {
             return Math.Max(min, Math.Min(max, value));
         }
-        public void eintragRegister(Eintrag e)
+        public void eintragRegister(Entry e)
         {
             if (!eintraege.Contains(e)){
                 eintraege.Add(e);

@@ -94,13 +94,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Eintrag.cs" />
-    <Compile Include="Kontrollleiste.cs" />
+    <Compile Include="ControlBarUIFactory.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="ControlBar.cs" />
     <Compile Include="ProjectSettings.cs" />
     <Compile Include="SizeConverter.cs" />
-    <Compile Include="SmartTextBox.cs" />
+    <Compile Include="TextField.cs" />
     <Compile Include="ViewportConverter.cs" />
-    <Page Include="Einstellungen.xaml">
+    <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,22 +113,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Einstellungen.xaml.cs">
-      <DependentUpon>Einstellungen.xaml</DependentUpon>
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NeuesProjekt.xaml">
+    <Page Include="NewProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProjektDetails.xaml">
+    <Page Include="ProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Projektverwaltung.xaml">
+    <Page Include="ProjectManagment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,16 +138,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NeuesProjekt.xaml.cs">
-      <DependentUpon>NeuesProjekt.xaml</DependentUpon>
+    <Compile Include="NewProjectPage.xaml.cs">
+      <DependentUpon>NewProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Project.cs" />
     <Compile Include="ProjectManager.cs" />
-    <Compile Include="ProjektDetails.xaml.cs">
-      <DependentUpon>ProjektDetails.xaml</DependentUpon>
+    <Compile Include="ProjectPage.xaml.cs">
+      <DependentUpon>ProjectPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Projektverwaltung.xaml.cs">
-      <DependentUpon>Projektverwaltung.xaml</DependentUpon>
+    <Compile Include="ProjectManagment.xaml.cs">
+      <DependentUpon>ProjectManagment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

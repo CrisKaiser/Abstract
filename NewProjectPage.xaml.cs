@@ -4,9 +4,9 @@ using System.Windows;
 
 namespace AbstractApp
 {
-    public partial class NeuesProjekt : Window
+    public partial class NewProjectPage : Window
     {
-        public NeuesProjekt()
+        public NewProjectPage()
         {
             InitializeComponent();
         }
@@ -25,7 +25,7 @@ namespace AbstractApp
             if (string.IsNullOrEmpty(speicherort))
             {
                 MessageBox.Show("Bitte lege zuerst einen Speicherort in den Einstellungen fest.");
-                Einstellungen einstellungen = new Einstellungen();
+                SettingsPage einstellungen = new SettingsPage();
                 einstellungen.Show();
                 return;
             }

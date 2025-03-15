@@ -6,20 +6,20 @@ using System.Windows.Media;
 
 namespace AbstractApp
 {
-    public class SmartTextBox : TextBox
+    public class TextField : TextBox
     {
         private int fontSizeDefault = 12;
         private int fontSizeMin = 10;
         private int fontSizeMax = 22;
 
-        static SmartTextBox()
+        static TextField()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(SmartTextBox),
-                new FrameworkPropertyMetadata(typeof(SmartTextBox)));
+                typeof(TextField),
+                new FrameworkPropertyMetadata(typeof(TextField)));
         }
 
-        public SmartTextBox(Point position)
+        public TextField(Point position)
         {
             InitializeTextBox(position);
             SetupEvents();
@@ -96,12 +96,14 @@ namespace AbstractApp
         {
             if (FontSize > fontSizeMin)
                 FontSize -= 1;
+                fontSizeChangeReceiver();
         }
 
         public void increaseFontSize()
         {
             if (FontSize < fontSizeMax)
                 FontSize += 1;
+                fontSizeChangeReceiver();
         }
 
     }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="AbstractApp.Projektverwaltung"
+﻿<Window x:Class="AbstractApp.ProjectManagment"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Projektverwaltung" WindowState="Maximized">

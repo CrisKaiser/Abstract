@@ -11,21 +11,21 @@ namespace AbstractApp
 
         private void BtnProjektverwaltung_Click(object sender, RoutedEventArgs e)
         {
-            Projektverwaltung projektverwaltungFenster = new Projektverwaltung();
+            ProjectManagment projektverwaltungFenster = new ProjectManagment();
             projektverwaltungFenster.Show();
             this.Close(); // Hauptmenü schließen
         }
 
         private void BtnNeuesProjekt_Click(object sender, RoutedEventArgs e)
         {
-            NeuesProjekt neuesProjektFenster = new NeuesProjekt();
+            NewProjectPage neuesProjektFenster = new NewProjectPage();
             neuesProjektFenster.Show();
             this.Close(); // Hauptmenü schließen
         }
 
         private void BtnEinstellungen_Click(object sender, RoutedEventArgs e)
         {
-            Einstellungen einstellungen = new Einstellungen();
+            SettingsPage einstellungen = new SettingsPage();
             einstellungen.Show();
         }
 

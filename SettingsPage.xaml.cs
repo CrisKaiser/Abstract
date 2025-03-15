@@ -4,9 +4,9 @@ using System.Windows;
 
 namespace AbstractApp
 {
-    public partial class Einstellungen : Window
+    public partial class SettingsPage : Window
     {
-        public Einstellungen()
+        public SettingsPage()
         {
             InitializeComponent();
             LadeSpeicherort();

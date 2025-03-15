@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AbstractApp">
 
-    <Style TargetType="{x:Type local:SmartTextBox}">
+    <Style TargetType="{x:Type local:TextField}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:SmartTextBox}">
+                <ControlTemplate TargetType="{x:Type local:TextField}">
                     <Border CornerRadius="8" 
                             BorderThickness="1" 
                             BorderBrush="{TemplateBinding BorderBrush}" 

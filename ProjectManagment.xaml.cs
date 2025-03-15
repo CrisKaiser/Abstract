@@ -5,11 +5,11 @@ using System.Windows;
 
 namespace AbstractApp
 {
-    public partial class Projektverwaltung : Window
+    public partial class ProjectManagment : Window
     {
         private ObservableCollection<Projekt> _projekte;
 
-        public Projektverwaltung()
+        public ProjectManagment()
         {
             InitializeComponent();
             LadeProjekte();
@@ -31,7 +31,7 @@ namespace AbstractApp
                 return;
             }
 
-            ProjektDetails projektDetails = new ProjektDetails(ausgewaehltesProjekt);
+            ProjectPage projektDetails = new ProjectPage(ausgewaehltesProjekt);
             projektDetails.Show();
             this.Close();
         }

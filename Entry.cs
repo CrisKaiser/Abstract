@@ -6,13 +6,13 @@ using System.Windows.Media;
 
 namespace AbstractApp
 {
-    public class Eintrag : Grid
+    public class Entry : Grid
     {
         private int heightKontrolle = 24; 
-        public SmartTextBox TextBox { get; private set; }
-        public Kontrollleiste Kontrolle { get; private set; }
+        public TextField TextBox { get; private set; }
+        public ControlBar Kontrolle { get; private set; }
 
-        private ProjektDetails pDetail;
+        private ProjectPage pDetail;
 
         private Point _translationStart;
         private double _originalX;
@@ -32,7 +32,7 @@ namespace AbstractApp
             set => Margin = new Thickness(X, value, 0, 0);
         }
 
-        public Eintrag(Point position, ProjektDetails pDetail)
+        public Entry(Point position, ProjectPage pDetail)
         {
             InitializeLayout(position);
             SetupEvents();
@@ -49,12 +49,12 @@ namespace AbstractApp
             RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto }); 
 
-            TextBox = new SmartTextBox(new Point(0, 0))
+            TextBox = new TextField(new Point(0, 0))
             {
                 Margin = new Thickness(0) 
             };
 
-            Kontrolle = new Kontrollleiste(heightKontrolle)
+            Kontrolle = new ControlBar(heightKontrolle)
             {
                 HorizontalAlignment = HorizontalAlignment.Left, 
                 Margin = new Thickness(0, 0, 0, 5) 
@@ -133,7 +133,6 @@ namespace AbstractApp
         private void smallerClickHandler()
         {
             TextBox.decreaseFontSize();
-            TextBox.fontSizeChangeReceiver();
         }
 
         private void checkedHandler()
@@ -157,19 +156,19 @@ namespace AbstractApp
 
         public void notifyOnStateUpdate()
         {
-            if (pDetail.currentLayerMode == ProjektDetails.LayerMode.DeleteMode)
+            if (pDetail.currentLayerMode == ProjectPage.LayerMode.DeleteMode)
             {
-                Kontrolle.setCurrentMode(Kontrollleiste.ControlMode.DeleteMode);
+                Kontrolle.SetCurrentControlMode(ControlBar.ControlMode.DeleteMode);
                 Kontrolle.Visibility = Visibility.Visible;
             }
-            else if (pDetail.currentLayerMode == ProjektDetails.LayerMode.TranslateMode)
+            else if (pDetail.currentLayerMode == ProjectPage.LayerMode.TranslateMode)
             {
-                Kontrolle.setCurrentMode(Kontrollleiste.ControlMode.TranslateMode);
+                Kontrolle.SetCurrentControlMode(ControlBar.ControlMode.TranslateMode);
                 Kontrolle.Visibility = Visibility.Visible;
             }
-            else if (pDetail.currentLayerMode == ProjektDetails.LayerMode.EditMode)
+            else if (pDetail.currentLayerMode == ProjectPage.LayerMode.EditMode)
             {
-                Kontrolle.setCurrentMode(Kontrollleiste.ControlMode.EditMode);
+                Kontrolle.SetCurrentControlMode(ControlBar.ControlMode.EditMode);
                 Kontrolle.Visibility = Visibility.Visible;
             }
             else
